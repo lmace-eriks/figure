@@ -1,0 +1,6 @@
+{
+  "figure": {
+    "component": "Figure",
+    "composition": "children"
+  }
+}
