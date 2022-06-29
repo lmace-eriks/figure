@@ -1,0 +1,24 @@
+.figureContainer {
+    margin: 0 0 1rem 0;
+}
+
+.figureWrapper {}
+
+.figureTag {
+    margin: 0;
+}
+
+.figureImage {
+    width: 100%;
+}
+
+.figureCaption {
+    text-align: center;
+    font-style: italic;
+    padding: 0.25rem;
+    font-size: 1.25rem;
+    background-color: #eaeaea;
+    background: linear-gradient(0deg, #eaeaea, #ffffff);
+}
+
+.figureCaptionText {}
