@@ -8,15 +8,16 @@ The "imgSet" object defines both a "desktop" and "mobile" image source for optim
 ## VTEX Block Example
 
 ```
-"figure#bicycle-photo-1": {
+"figure#photo-1": {
     "props": {
+      "blockClass": "my-photo-blockclass"
       "imgSet": {
         "desktop": "absolute-path-to-desktop-image.jpg",
         "mobile": "absolute-path-to-mobile-image.jpg"
       },
       "imgSrc": "absolute-path-to-default-image.jpg",
       "caption": "The text you want below the image",
-      "alt": "Alt and Title Text"
+      "alt": "Alt, Title and ARIA Text"
     }
   }
 ```
@@ -29,22 +30,20 @@ The "imgSet" object defines both a "desktop" and "mobile" image source for optim
 
 - caption - Caption for the image. Renders in a grey / white box beneath the image by default.
 
-- alt - Text here will render in the `<img>` 'alt' attribute and 'title' attribute.
+- alt - Text here will render in the `<img>` 'alt', 'title' attribute and the `<figure>` 'ARIA-label' attribute.
 
 ## Dom Example
 ```
-<div class="eriksbikeshop-figure-1-x-figureContainer">
-    <div class="eriksbikeshop-figure-1-x-figureWrapper">
-        <figure class="eriksbikeshop-figure-1-x-figureTag">
+<div class="accountname-figure-1-x-figureContainer">
+    <div class="accountname-figure-1-x-figureWrapper">
+        <figure role="img" aria-label="The Alt Text" class="accountname-figure-1-x-figureTag">
             <picture>
-                <source media="(min-width:1026px)" srcset="absolute-path-to-desktop.jpg">
-                <source media="(max-width:1025px)" srcset="absolute-path-to-mobile.jpg">
-                <img src="absolute-path-to-default.jpg" alt="Alt Text" title="Alt Text" class="eriksbikeshop-figure-1-x-figureImage" crossorigin="anonymous">
-                </picture>
-            <figcaption class="eriksbikeshop-figure-1-x-figureCaption">
-            <span class="eriksbikeshop-figure-1-x-figureCaptionText">
-                Caption Text
-            </span>
+                <source media="(min-width:1026px)" srcset="absolute-path.jpg">
+                <source media="(max-width:1025px)" srcset="absolute-path.jpg">
+                <img src="absolute-path.jpg" alt="The Alt Text" title="The Alt Text" class="accountname-figure-1-x-figureImage" crossorigin="anonymous">
+            </picture>
+            <figcaption class="accountname-figure-1-x-figureCaption">
+                <span class="accountname-figure-1-x-figureCaptionText">You'll want at least 1 inch between you, and the top bar of the bike.</span>
             </figcaption>
         </figure>
     </div>

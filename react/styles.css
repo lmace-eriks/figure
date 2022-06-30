@@ -1,24 +1,11 @@
-.figureContainer {
-    margin: 0 0 1rem 0;
-}
+.figureContainer {}
 
 .figureWrapper {}
 
-.figureTag {
-    margin: 0;
-}
+.figureTag {}
 
-.figureImage {
-    width: 100%;
-}
+.figureImage {}
 
-.figureCaption {
-    text-align: center;
-    font-style: italic;
-    padding: 0.25rem;
-    font-size: 1.25rem;
-    background-color: #eaeaea;
-    background: linear-gradient(0deg, #eaeaea, #ffffff);
-}
+.figureCaption {}
 
 .figureCaptionText {}
