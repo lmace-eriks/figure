@@ -4,17 +4,12 @@ import React from 'react';
 import styles from "./styles.css";
 
 interface FigureProps {
-  imgSet: imgSetObject
   imgSrc: string
+  mobileImgSrc: string
   link?: linkObject
   caption: string
   alt: string
   blockClass: string
-}
-
-interface imgSetObject {
-  desktop: string
-  mobile: string
 }
 
 interface linkObject {
@@ -22,32 +17,39 @@ interface linkObject {
   newTab: Boolean
 }
 
-const Figure: StorefrontFunctionComponent<FigureProps> = ({ imgSet, imgSrc, caption, alt, link, blockClass }) => {
+const Figure: StorefrontFunctionComponent<FigureProps> = ({ imgSrc, mobileImgSrc, caption, alt, link, blockClass }) => {
+
+  // If imgSrc is blank, do not render 
+  if (!imgSrc) return <></>
 
   const blockClassFormat = blockClass ? `--${blockClass}` : "";
 
+  console.log({ imgSrc, mobileImgSrc })
+
+  // Picture tag if Mobile image source is present, Image tag if absent
   const imageReturn = (
     <>
-      {imgSet &&
+      {mobileImgSrc &&
         <picture>
-          <source media="(min-width:1026px)" srcSet={imgSet.desktop} />
-          <source media="(max-width:1025px)" srcSet={imgSet.mobile} />
-          <img src={imgSrc || imgSet.desktop} alt={alt} title={alt} className={blockClass ? `${styles.figureImage} ${styles.figureImage}${blockClassFormat}` : `${styles.figureImage}`} />
+          <source media="(min-width:1026px)" srcSet={imgSrc} />
+          <source media="(max-width:1025px)" srcSet={mobileImgSrc} />
+          <img src={imgSrc} alt={alt} title={alt} className={blockClass ? `${styles.figureImage} ${styles.figureImage}${blockClassFormat}` : `${styles.figureImage}`} />
         </picture>
       }
-      {!imgSet &&
+      {!mobileImgSrc &&
         <img src={imgSrc} alt={alt} title={alt} className={blockClass ? `${styles.figureImage} ${styles.figureImage}${blockClassFormat}` : `${styles.figureImage}`} />
       }
     </>
   )
 
-  if (!imgSrc) return <></>
+  // Boolean for anchor tag conditional render
+  const url = link ? !!link.url : !!"";
 
   return (
     <div className={blockClass ? `${styles.figureContainer} ${styles.figureContainer}${blockClassFormat}` : `${styles.figureContainer}`}>
       <div className={blockClass ? `${styles.figureWrapper} ${styles.figureWrapper}${blockClassFormat}` : `${styles.figureWrapper}`}>
         <figure role="img" aria-label={alt} className={blockClass ? `${styles.figureTag} ${styles.figureTag}${blockClassFormat}` : `${styles.figureTag}`}>
-          {link && link ? <a href={link.url} target={link.newTab ? "_blank" : "_self"} rel="noreferrer">{imageReturn}</a> : <>{imageReturn}</>}
+          {url && link ? <a href={link.url} target={link.newTab ? "_blank" : "_self"} rel="noreferrer">{imageReturn}</a> : <>{imageReturn}</>}
           {caption && <figcaption className={blockClass ? `${styles.figureCaption} ${styles.figureCaption}${blockClassFormat}` : `${styles.figureCaption}`}>
             <span className={blockClass ? `${styles.figureCaptionText} ${styles.figureCaptionText}${blockClassFormat}` : `${styles.figureCaptionText}`}>{caption}</span>
           </figcaption>}
@@ -63,35 +65,40 @@ Figure.schema = {
   type: 'object',
   properties: {
     imgSrc: {
-      title: "Default Image Source",
-      description: "REQUIRED - Absolute Path to default image.",
+      title: "Desktop Image Source",
+      description: "REQUIRED - Absolute Path to Desktop optimized image.",
       type: "string"
     },
-    imgSet: {
-      type: "object",
-      title: "Image Set",
-      properties: {
-        desktop: {
-          title: "Desktop Image Source",
-          description: "Optional - Image optimized for desktop devices.",
-          type: "string"
-        },
-        mobile: {
-          title: "Mobile Image Source",
-          description: "Optional - Image optimized for mobile devices.",
-          type: "string"
-        }
-      }
+    mobileImgSrc: {
+      title: "Mobile Image Source",
+      description: "Optional - Absolute Path to Mobile optimized image.",
+      type: "string"
     },
     caption: {
       title: "Image Caption",
-      description: "Optional - Text rendered below the image for SEO boost. No Markdown accepted.",
+      description: "Optional - Text rendered below the image. No Markdown accepted.",
       type: "string"
     },
     alt: {
-      title: "Alt Text",
-      description: "Optional - Used for Alt, Title and ARIA attributes for screen readers and SEO boost. No Markdown accepted.",
+      title: "Alt / Title / ARIA Text",
+      description: "Optional - Used for Alt, Title and ARIA attributes.",
       type: "string"
+    },
+    link: {
+      type: "object",
+      title: "Link",
+      properties: {
+        url: {
+          title: "Link URL",
+          description: "Optional - Link to follow when image is clicked.",
+          type: "string"
+        },
+        newTab: {
+          title: "Open In New Tab?",
+          description: "Optional - Defaults to false",
+          type: "boolean"
+        }
+      }
     }
   }
 }
