@@ -24,8 +24,6 @@ const Figure: StorefrontFunctionComponent<FigureProps> = ({ imgSrc, mobileImgSrc
 
   const blockClassFormat = blockClass ? `--${blockClass}` : "";
 
-  console.log({ imgSrc, mobileImgSrc })
-
   // Picture tag if Mobile image source is present, Image tag if absent
   const imageReturn = (
     <>
@@ -33,11 +31,11 @@ const Figure: StorefrontFunctionComponent<FigureProps> = ({ imgSrc, mobileImgSrc
         <picture>
           <source media="(min-width:1026px)" srcSet={imgSrc} />
           <source media="(max-width:1025px)" srcSet={mobileImgSrc} />
-          <img src={imgSrc} alt={alt} title={alt} className={blockClass ? `${styles.figureImage} ${styles.figureImage}${blockClassFormat}` : `${styles.figureImage}`} />
+          <img src={imgSrc} alt={alt ? alt : ""} title={alt} loading="lazy" className={blockClass ? `${styles.figureImage} ${styles.figureImage}${blockClassFormat}` : `${styles.figureImage}`} />
         </picture>
       }
       {!mobileImgSrc &&
-        <img src={imgSrc} alt={alt} title={alt} className={blockClass ? `${styles.figureImage} ${styles.figureImage}${blockClassFormat}` : `${styles.figureImage}`} />
+        <img src={imgSrc} alt={alt ? alt : ""} title={alt} loading="lazy" className={blockClass ? `${styles.figureImage} ${styles.figureImage}${blockClassFormat}` : `${styles.figureImage}`} />
       }
     </>
   )
@@ -48,7 +46,7 @@ const Figure: StorefrontFunctionComponent<FigureProps> = ({ imgSrc, mobileImgSrc
   return (
     <div className={blockClass ? `${styles.figureContainer} ${styles.figureContainer}${blockClassFormat}` : `${styles.figureContainer}`}>
       <div className={blockClass ? `${styles.figureWrapper} ${styles.figureWrapper}${blockClassFormat}` : `${styles.figureWrapper}`}>
-        <figure role="img" aria-label={alt} className={blockClass ? `${styles.figureTag} ${styles.figureTag}${blockClassFormat}` : `${styles.figureTag}`}>
+        <figure role="img" className={blockClass ? `${styles.figureTag} ${styles.figureTag}${blockClassFormat}` : `${styles.figureTag}`}>
           {url && link ? <a href={link.url} target={link.newTab ? "_blank" : "_self"} rel="noreferrer">{imageReturn}</a> : <>{imageReturn}</>}
           {caption && <figcaption className={blockClass ? `${styles.figureCaption} ${styles.figureCaption}${blockClassFormat}` : `${styles.figureCaption}`}>
             <span className={blockClass ? `${styles.figureCaptionText} ${styles.figureCaptionText}${blockClassFormat}` : `${styles.figureCaptionText}`}>{caption}</span>
@@ -80,8 +78,8 @@ Figure.schema = {
       type: "string"
     },
     alt: {
-      title: "Alt / Title / ARIA Text",
-      description: "Optional - Used for Alt, Title and ARIA attributes.",
+      title: "Alt / Title Text",
+      description: "Optional - Used for Alt and Title attributes.",
       type: "string"
     },
     link: {

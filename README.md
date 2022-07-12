@@ -28,7 +28,7 @@ Renders an `<picture>` and `<img>` tag inside a `<figure>` tag with an optional 
 
 - caption - Caption for the image. Renders in a grey / white box beneath the image by default.
 
-- alt - Text here will render in the `<img>` 'alt', 'title' attribute and the `<figure>` 'ARIA-label' attribute.
+- alt - Text here will render in the `<img>` 'alt' and 'title' attribute.
 
 - link - Object containing "url" and "newTab" properties.
     - url - URL to follow when image is clicked. Absolute or relative path.
@@ -40,7 +40,7 @@ Renders an `<picture>` and `<img>` tag inside a `<figure>` tag with an optional 
 ```
 <div class="eriksbikeshop-figure-1-x-figureContainer">
     <div class="eriksbikeshop-figure-1-x-figureWrapper">
-        <figure role="img" aria-label="This is the Alt Text" class="eriksbikeshop-figure-1-x-figureTag">
+        <figure role="img" class="eriksbikeshop-figure-1-x-figureTag">
             <a href="/this-is-the-link" target="_self" rel="noreferrer">
                 <picture>
                     <source media="(min-width:1026px)" srcset="absolute-path-to-desktop-image.jpg">
